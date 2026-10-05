@@ -1,10 +1,12 @@
-# api-jeux
+# API Jeux 🎮
 
-api du catalogue de jeux
+API de gestion d'une collection de jeux vidéo développée avec FastAPI.
 
-## Lancer
+## Prérequis
+- Python 3.10 ou supérieur
+- Pip
 
-    pip install -r requirements.txt
-    python main.py
-
-TODO : compléter la doc
+## Démarrage rapide
+1. Installer les dépendances :
+   ```bash
+   pip install -r requirements.txt
