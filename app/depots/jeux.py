@@ -86,6 +86,17 @@ def par_titre(session: Session, titre: str) -> Jeu | None:
 def tous_les_identifiants(session: Session) -> list[int]:
     return list(session.scalars(select(Jeu.id).order_by(Jeu.id)).all())
 
+def filtre_annees(
+    session: Session, annee_debut: int | None = None, annee_fin: int | None = None
+) -> list[Jeu]:
+    """Filtre les jeux dans une plage de dates, dont chaque borne est facultative."""
+    requete = select(Jeu)
+    if annee_debut is not None:
+        requete = requete.where(Jeu.annee >= annee_debut)
+    if annee_fin is not None:
+        requete = requete.where(Jeu.annee <= annee_fin)
+    requete = requete.order_by(Jeu.annee)
+    return list(session.scalars(requete).all())
 
 def genres_distincts(session: Session) -> list[str]:
     return list(session.scalars(select(Jeu.genre).distinct().order_by(Jeu.genre)).all())

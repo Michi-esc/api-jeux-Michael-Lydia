@@ -17,6 +17,13 @@ def test_lire_editeur(client, editeur):
     assert reponse.json()["nom"] == "Maddy Makes Games"
 
 
+def test_filtrer_editeurs_par_pays(client, editeur):
+    reponse = client.get(f"{BASE}/editeurs/filtrer_par_pays/cAnAdA")
+
+    assert reponse.status_code == 200
+    assert [element["nom"] for element in reponse.json()] == [editeur.nom]
+
+
 def test_editeur_absent(client):
     reponse = client.get(f"{BASE}/editeurs/999")
 

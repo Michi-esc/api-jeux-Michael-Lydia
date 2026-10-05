@@ -1,6 +1,6 @@
 """Routes des éditeurs — séance 4, partie 6."""
 
-from fastapi import APIRouter, status
+from fastapi import APIRouter, HTTPException, status
 
 from app.dependances import AdminDep, PaginationDep, SessionDep
 from app.modeles.commun import REPONSES_DROITS, ErreurReponse, Page
@@ -32,6 +32,16 @@ def lire(session: SessionDep, editeur_id: int):
 def lister_jeux(session: SessionDep, editeur_id: int):
     return service.jeux_de(session, editeur_id)
 
+@routeur.get(
+    "/filtrer_par_pays/{pays}",
+    response_model=list[EditeurSortie],
+    summary="Filtrer les éditeurs par pays",
+)
+def filtrer_par_pays(session: SessionDep, pays: str):
+    pays_editeur =service.filtrer_par_pays(session, pays)
+    if pays_editeur:
+        return pays_editeur
+    raise HTTPException(status_code=404, detail="Aucun éditeur trouvé pour ce pays")
 
 @routeur.post(
     "",
