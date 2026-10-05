@@ -85,7 +85,7 @@ def test_filtre_sans_resultat_renvoie_une_liste_vide(session, catalogue):
 def test_filtrer_entre_dates_bornes_facultatives(
     session, catalogue, date_debut, date_fin, titres
 ):
-    jeux = service.filtrer_entre_dates(session, date_debut, date_fin)
+    jeux = service.filtre_annees(session, date_debut, date_fin)
 
     assert {jeu.titre for jeu in jeux} == titres
 
