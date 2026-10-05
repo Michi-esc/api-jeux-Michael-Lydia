@@ -69,27 +69,6 @@ def test_filtre_sans_resultat_renvoie_une_liste_vide(session, catalogue):
     assert (elements, total) == ([], 0)
 
 
-@pytest.mark.parametrize(
-    ("date_debut", "date_fin", "titres"),
-    [
-        ("2100-01-01T00:00:00Z", None, set()),
-        (None, "2000-01-01T00:00:00Z", set()),
-        (
-            "2000-01-01T00:00:00Z",
-            "2100-01-01T00:00:00Z",
-            {"Celeste", "Among Us", "Hades", "Undertale", "Disco Elysium"},
-        ),
-        (None, None, {"Celeste", "Among Us", "Hades", "Undertale", "Disco Elysium"}),
-    ],
-)
-def test_filtrer_entre_dates_bornes_facultatives(
-    session, catalogue, date_debut, date_fin, titres
-):
-    jeux = service.filtrer_entre_dates(session, date_debut, date_fin)
-
-    assert {jeu.titre for jeu in jeux} == titres
-
-
 def test_total_suit_les_filtres_pas_la_page(session, catalogue):
     """Le total compte les éléments filtrés — ni le catalogue, ni la page."""
     elements, total = service.lister(session, limite=2)

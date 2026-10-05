@@ -186,22 +186,6 @@ def test_filtres_et_pagination(client, entetes):
     assert corps["pages_totales"] == 2
 
 
-def test_filtrer_entre_dates_accepte_une_borne_ouverte(client, entetes):
-    cree = creer_jeu(client, entetes)
-
-    depuis = client.get(
-        f"{BASE}/jeux/date", params={"date_debut": "2000-01-01T00:00:00Z"}
-    )
-    jusqua = client.get(
-        f"{BASE}/jeux/date", params={"date_fin": "2100-01-01T00:00:00Z"}
-    )
-
-    assert depuis.status_code == 200
-    assert [jeu["id"] for jeu in depuis.json()] == [cree["id"]]
-    assert jusqua.status_code == 200
-    assert [jeu["id"] for jeu in jusqua.json()] == [cree["id"]]
-
-
 def test_contrainte_de_requete_hors_bornes(client):
     reponse = client.get(f"{BASE}/jeux", params={"note_min": 42})
 

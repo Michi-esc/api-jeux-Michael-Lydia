@@ -69,20 +69,6 @@ def statistiques(session: SessionDep):
 
 
 @routeur.get(
-    "/année de sortie",
-    response_model=list[JeuResume],
-    summary="Filtrer les jeux par année de sortie",
-    description="Les bornes annee_debut et annee_fin sont facultatives et inclusives.",
-)
-def filtre_annees(
-    session: SessionDep,
-    annee_debut: int | None = None,
-    annee_fin: int | None = None,
-):
-    return service.filtre_annees(session, annee_debut, annee_fin)
-
-
-@routeur.get(
     "/{jeu_id}",
     response_model=JeuSortie,
     summary="Lire un jeu",
