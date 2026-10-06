@@ -32,6 +32,11 @@ def par_nom(session: Session, nom: str) -> Editeur | None:
     return session.scalar(select(Editeur).where(func.lower(Editeur.nom) == nom.lower()))
 
 
+def par_pays(session: Session, pays: str) -> list[Editeur]:
+    requete = select(Editeur).where(func.lower(Editeur.pays) == pays.strip().lower())
+    return list(session.scalars(requete.order_by(Editeur.nom)).all())
+
+
 def enregistrer(session: Session, editeur: Editeur) -> Editeur:
     session.add(editeur)
     session.commit()

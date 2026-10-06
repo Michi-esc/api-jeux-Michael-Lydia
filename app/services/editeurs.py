@@ -28,6 +28,10 @@ def jeux_de(session: Session, editeur_id: int):
     return editeur.jeux
 
 
+def filtrer_par_pays(session: Session, pays: str) -> list[Editeur]:
+    return depot.par_pays(session, pays)
+
+
 def creer(session: Session, entree: EditeurEntree) -> Editeur:
     editeur = Editeur(**entree.model_dump())
     try:
