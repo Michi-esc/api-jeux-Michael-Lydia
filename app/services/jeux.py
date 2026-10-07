@@ -58,6 +58,14 @@ def genres(session: Session) -> list[str]:
     return depot.genres_distincts(session)
 
 
+def filtre_annees(
+    session: Session, annee_debut: int | str | None = None, annee_fin: int | str | None = None
+) -> list[Jeu]:
+    """Filtre les jeux dont l'année de sortie est comprise entre deux années."""
+    return depot.filtre_annees(session, annee_debut, annee_fin)
+
+
+
 def similaires(session: Session, jeu_id: int) -> list[Jeu]:
     """Le 404 porte sur le jeu demandé, pas sur le résultat.
 
